@@ -5,6 +5,13 @@ function randomNumber (min, max)
 	return random;
 }
 
+function randomNumberd (min, max)
+{
+	max++;
+	let random = Math.floor(Math.random() * (+max - +min)) + +min;
+	return random;
+}
+
 class Grass
 {
 	constructor (x, y)
