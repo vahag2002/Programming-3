@@ -20,20 +20,42 @@ class Grass
 
 	chooseCell (type)
 	{
-		let found = [];
-		for (let i = 0; i < this.directions.length; i++)
+		let free = [];
+		if (type == "all")
 		{
-			let x = this.directions [i] [0];
-			let y = this.directions [i] [1];
-			if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length)
+			free = this.directions;
+		}
+		else if (type == "GrassEmpty")
+		{
+			for (let i in this.directions)
 			{
-				if (matrix [y] [x] == type)
+				let x = this.directions [i] [0];
+				let y = this.directions [i] [1];
+				if (x >= 0 && x < matrix [0].length && y >= 0 && y < matrix.length)
 				{
-					found.push(this.directions [i]);
+					if (matrix [y] [x] == 1 || matrix [y] [x] == 0)
+					{
+						free.push(this.directions [i]);
+					}
 				}
 			}
 		}
-		return found;
+		else
+		{
+			for (let i in this.directions)
+			{
+				let x = this.directions [i] [0];
+				let y = this.directions [i] [1];
+				if (x >= 0 && x < matrix [0].length && y >= 0 && y < matrix.length)
+				{
+					if (matrix [y] [x] == type)
+					{
+						free.push(this.directions [i]);
+					}
+				}
+			}
+		}
+		return free;
 	}
 
 	mul (i)

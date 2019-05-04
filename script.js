@@ -3,50 +3,14 @@ let rn;
 
 let w = 33;
 let h = 33;
+let size = w * h;
 
 let grass = 30;
 let eater = 2;
 let preda = 2;
-
 let empty = 100 - grass - eater - preda;
 
-for (let i = 0; i < h; i++)
-{
-	matrix [i] = [];
-	for (let k = 0; k < w; k++)
-	{
-		rn = randomNumber (1, 100);
-
-		if 		(rn >= 0 && rn <= empty)
-		{
-			matrix [i] [k] = 0;
-		}
-		else if (rn >= empty + 1 && rn <= empty + grass)
-		{
-			matrix [i] [k] = 1;
-		}
-		else if (rn >= empty + grass + 1 && rn <= empty + grass + eater)
-		{
-			matrix [i] [k] = 2;
-		}
-		else if (rn >= empty + grass + eater + 1 && rn <= 100)
-		{
-			matrix [i] [k] = 3;
-		}
-	}
-}
-
-matrix [0] [0] = 7;
-
-let a, b;
-
-a = parseInt (randomNumber (0, w / 2 - 1));
-b = parseInt (randomNumber (0, h / 2 - 1));
-matrix [b] [a] = 4;
-
-a = parseInt (randomNumber (w / 2, w - 1));
-b = parseInt (randomNumber (h / 2, h - 1));
-matrix [b] [a] = 4;
+let bomb = 2;
 
 let side = 20;
 let grassArr = [];
@@ -56,7 +20,10 @@ let bombArr = [];
 let fireArr = [];
 let chargeArr = [];
 let player;
-let size = w * h;
+
+let a, b;
+
+refresh ();
 
 function setup()
 {
@@ -167,6 +134,13 @@ function draw()
 		chargeArr [i].move (i);
 	}
 
+	player.time++;
+	if (player.time >= 7)
+	{
+		player.time = 0;
+		player.explone ();
+	}
+
 	if (grassArr.length <= 0 && grassEaterArr.length <= 0 && predatorArr.length <= 0 && chargeArr.length <= 0)
 	{
 		refresh ();
@@ -200,7 +174,7 @@ function refresh ()
 		{
 			rn = randomNumber (1, 100);
 
-			if 		(rn >= 0 && rn <= empty)
+			if (rn >= 0 && rn <= empty)
 			{
 				matrix [i] [k] = 0;
 			}
@@ -218,6 +192,9 @@ function refresh ()
 			}
 		}
 	}
+
+	matrix [0] [0] = 7;
+	player = new Player (0, 0);
 
 	let r = randomNumber (0, 1);
 	let a, b;

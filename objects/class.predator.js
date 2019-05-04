@@ -62,7 +62,7 @@ class Predator
 				}
 			}
 		}
-		else if (type == 2)
+		else
 		{
 			for (let i in this.directions)
 			{

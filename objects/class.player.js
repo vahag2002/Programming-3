@@ -4,6 +4,8 @@ class Player
 	{
 		this.x = x;
 		this.y = y;
+		this.time = 0;
+		this.killed = 0;
 		this.directions = 
 		[
 			[this.x + 3, this.y    ],
@@ -254,7 +256,7 @@ class Player
 				}
 			}
 		}
-		else if (type == 2)
+		else
 		{
 			for (let i in this.directions)
 			{
@@ -322,6 +324,60 @@ class Player
 
 	explone ()
 	{
+		// let free = this.chooseCell ("all");
+		// let x, y;
+		// matrix [this.y] [this.x] = 7;
+
+		// for (let k in free)
+		// {
+		// 	x = free [k] [0];
+		// 	y = free [k] [1];
+		// 	if (x >= 0 && x < matrix [0].length && y >= 0 && y < matrix.length)
+		// 	{
+		// 		if (matrix [y] [x] != 0)
+		// 		{
+		// 			if (matrix [y] [x] == 1 || matrix [y] [x] == 2 || matrix [y] [x] == 3)
+		// 			{
+		// 				matrix [y] [x] = 0;
+		// 			}
+		// 		}
+		// 		if (matrix [y] [x] != 4)
+		// 		{
+		// 			if (matrix [y] [x] == 1)
+		// 			{
+		// 				this.killed++;
+		// 			}
+		// 			else if (matrix [y] [x] == 2)
+		// 			{
+		// 				this.killed += 2;
+		// 			}
+		// 			else if (matrix [y] [x] == 3)
+		// 			{
+		// 				this.killed += 3;
+		// 			}
+
+		// 			if (this.killed >= 150)
+		// 			{
+		// 				this.killed = 0;
+
+		// 				let newCharge1 = new Charge (this.x, this.y - 3, "up");
+		// 				let newCharge2 = new Charge (this.x, this.y + 3, "down");
+		// 				let newCharge3 = new Charge (this.x - 3, this.y, "left");
+		// 				let newCharge4 = new Charge (this.x + 3, this.y, "right");
+
+		// 				chargeArr.push (newCharge1);
+		// 				chargeArr.push (newCharge2);
+		// 				chargeArr.push (newCharge3);
+		// 				chargeArr.push (newCharge4);
+		// 			}
+		// 			matrix [y] [x] = 5;
+		// 			let newFire = new Fire (x, y);
+		// 			fireArr.push (newFire);
+		// 		}
+		// 	}
+		// }
+		
+		matrix [this.y] [this.x] = 7;
 		let free = this.chooseCell ("all");
 		let x, y;
 
@@ -333,12 +389,38 @@ class Player
 			{
 				if (matrix [y] [x] != 0)
 				{
-					if (matrix [y] [x] == 1 || matrix [y] [x] == 2 || matrix [y] [x] == 3)
+					if (matrix [y] [x] == 1)
 					{
 						matrix [y] [x] = 0;
+						this.killed++;
+					}
+					else if (matrix [y] [x] == 2)
+					{
+						matrix [y] [x] = 0;
+						this.killed += 2;
+					}
+					else if (matrix [y] [x] == 3)
+					{
+						matrix [y] [x] = 0;
+						this.killed += 3;
+					}
+
+					if (this.killed >= 150)
+					{
+						this.killed = 0;
+
+						let newCharge1 = new Charge (this.x, this.y - 3, "up");
+						let newCharge2 = new Charge (this.x, this.y + 3, "down");
+						let newCharge3 = new Charge (this.x - 3, this.y, "left");
+						let newCharge4 = new Charge (this.x + 3, this.y, "right");
+
+						chargeArr.push (newCharge1);
+						chargeArr.push (newCharge2);
+						chargeArr.push (newCharge3);
+						chargeArr.push (newCharge4);
 					}
 				}
-				if (matrix [y] [x] != 4)
+				if (matrix [y] [x] != 4 && matrix [y] [x] != 7)
 				{
 					matrix [y] [x] = 5;
 					let newFire = new Fire (x, y);

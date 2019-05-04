@@ -4,7 +4,7 @@ class Fire
 	{
 		this.x = x;
 		this.y = y;
-		this.energy = 1;
+		this.energy = 2;
 	}
 
 	life (i)

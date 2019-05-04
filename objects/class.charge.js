@@ -8,46 +8,6 @@ class Charge
 		this.directions = [];
 	}
 
-	chooseCell (type)
-	{
-		let free = [];
-		if (type == "all")
-		{
-			free = this.expdirections;
-		}
-		else if (type == "GrassEmpty")
-		{
-			for (let i in this.expdirections)
-			{
-				let x = this.expdirections [i] [0];
-				let y = this.expdirections [i] [1];
-				if (x >= 0 && x < matrix [0].length && y >= 0 && y < matrix.length)
-				{
-					if (matrix [y] [x] == 1 || matrix [y] [x] == 0)
-					{
-						free.push(this.expdirections [i]);
-					}
-				}
-			}
-		}
-		else if (type == 2)
-		{
-			for (let i in this.expdirections)
-			{
-				let x = this.expdirections [i] [0];
-				let y = this.expdirections [i] [1];
-				if (x >= 0 && x < matrix [0].length && y >= 0 && y < matrix.length)
-				{
-					if (matrix [y] [x] == type)
-					{
-						free.push(this.expdirections [i]);
-					}
-				}
-			}
-		}
-		return free;
-	}
-
 	fire ()
 	{
 		if (this.x >= 0 && this.x < matrix [0].length && this.y >= 0 && this.y < matrix.length)
