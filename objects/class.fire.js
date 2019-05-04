@@ -1,9 +1,8 @@
-class Fire
+class Fire extends Creature
 {
 	constructor (x, y)
 	{
-		this.x = x;
-		this.y = y;
+		super(x, y);
 		this.energy = 2;
 	}
 

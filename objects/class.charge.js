@@ -1,9 +1,8 @@
-class Charge
+class Charge extends Creature
 {
 	constructor (x, y, trajectory)
 	{
-		this.x = x;
-		this.y = y;
+		super(x, y);
 		this.trajectory = trajectory;
 		this.directions = [];
 	}
