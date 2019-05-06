@@ -27,7 +27,7 @@ refresh ();
 
 function setup()
 {
-   	frameRate(30);
+   	frameRate(60);
    	createCanvas(matrix[0].length * side, matrix.length * side);
    	background ("#acacac");
 
