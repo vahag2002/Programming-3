@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>document</title>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
+		<script type="text/javascript" src="functions.js"></script>
+		<script type="text/javascript" src="objects/class.js"></script>
+		<script type="text/javascript" src="objects/class.grass.js"></script>
+		<script type="text/javascript" src="objects/class.grasseater.js"></script>
+		<script type="text/javascript" src="objects/class.predator.js"></script>
+		<script type="text/javascript" src="objects/class.bomb.js"></script>
+		<script type="text/javascript" src="objects/class.fire.js"></script>
+		<script type="text/javascript" src="objects/class.charge.js"></script>
+		<script type="text/javascript" src="objects/class.player.js"></script>
+		<script type="text/javascript" src="script.js"></script>
+		<style>
+			.disabled, .actived td{
+				padding: 7px 20px;
+			}
+			.disabled{
+				display: none;
+			}
+
+			.actived{
+				display: block;
+			}
+
+			.refresh{
+				margin-top: 10px;
+				margin-bottom: 10px;
+				padding: 10px 20px;
+				border-radius: 10px;
+				display: inline-block;
+				background-color: darkgrey;
+				color: white;
+				user-select: none;
+			}
+			.refresh:hover{
+				cursor: pointer;
+			}
+
+			.kill{
+				margin-top: 10px;
+				margin-bottom: 10px;
+				padding: 10px 20px;
+				border-radius: 10px;
+				display: inline-block;
+				color: black;
+				user-select: none;
+			}
+			.kill:hover{
+				cursor: pointer;
+			}
+			#killGrass{
+				background-color: green;
+			}
+			#killEater{
+				background-color: yellow;
+			}
+			#killPred{
+				background-color: red;
+			}
+
+			.keyboard{
+				position: absolute;
+				display: inline-block;
+				width: 300px;
+				height: 300px;
+				margin-left: 700px;
+				margin-top: 500px;
+			}
+
+			.line2{
+				display: flex;
+			}
+
+			.key{
+				width: 50px;
+				padding-top: 16px;
+				padding-bottom: 16px;
+				display: inline-block;
+				text-align: center;
+				border: solid 2px black;
+				background-color: grey;
+				border-radius: 5px;
+				margin: 5px;
+				user-select: none;
+			}
+			.key:hover{
+				cursor: pointer;
+			}
+			.up{
+				margin-left: 69px;
+			}
+
+			.charge{
+				background-color: orange;
+			}
+
+			.bar{
+				user-select: none;
+				display: inline-block;
+				padding: 20px 40px;
+				margin: 10px;
+				text-align: center;
+				width: 50px;
+				border: solid 2px black;
+				border-radius: 5px;
+			}
+
+			.description{
+				display: inline-block;
+				border: solid 1px black;
+				background-color: darkgrey;
+				padding: 5px 10px;
+				user-select: none;
+				border-radius: 5px;
+			}
+			.description:hover{
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="description" onclick="
+			if (document.getElementById('description').className == 'disabled')
+				document.getElementById('description').className = 'actived';
+			else
+				document.getElementById('description').className = 'disabled'"
+			onmousedown="this.style.background = 'grey';"
+			onmouseup="this.style.background = 'darkgrey';">
+			&raquo&raquo&raquo բացատրություն &laquo&laquo&laquo
+		</div>
+		<br>
+		<table class="disabled" id="description">
+			<tr>
+				<td style="background-color: green;">
+					
+				</td>
+				<td>
+					Խոտ
+				</td>
+				<td>
+					Բազմանում է ամեն 3 կադրը մեկ
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: yellow;">
+					
+				</td>
+				<td>
+					Խոտակեր
+				</td>
+				<td>
+					ուտում է մոտակա խոտին, 5 խոտ ուտելուց հետո բազմանում է, մահանում է եթե 5 անգամ շարժվելիս խոտ չի ուտում
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: red;">
+					
+				</td>
+				<td>
+					Գիշատիչ
+				</td>
+				<td>
+					բավականին մեծ տարածքի մեջ խոտակեր է փնտրում և ուտում, 10 խոտակեր ուտելուց հետո բազմանում է, մահանում է եթե 20 անգամ շարժվելիս խոտ չի ուտում
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: black;">
+					
+				</td>
+				<td>
+					Ռումբ
+				</td>
+				<td>
+					պայթում է ամեն 7 կադրը մեկ: Խոտ պայթեցնելիս ստանում է 1, խոտակեր` 2, գիշատիչ` 3 միավոր
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: orange;">
+					
+				</td>
+				<td>
+					Կրակ
+				</td>
+				<td>
+					հայտնվում է ռումբի պայթյունից հետո
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: purple;">
+					
+				</td>
+				<td>
+					Հրթիռ
+				</td>
+				<td>
+					4 կողմ արձակվում է երբ ռումբը հավաքում է 150 միավոր, մատրիցի եզրին հասնելիս անհետանում է, իսկ իր տեղը պատահականորեն հայտնվում է կամ խոտ, կամ խոտակեր, կամ գիշատիչ: Իր ճանապարհին ամեն ինչ բացի ռումբից ոչնչացնում է
+				</td>
+			</tr>
+		</table>
+		<div class="keyboard">
+			<div class="line1">
+				<div class="key up" id="up">
+					Num8
+				</div>
+			</div>
+			<div class="line2">
+				<div class="key left" id="left">
+					Num4
+				</div>
+				<div class="key down" id="down">
+					Num5
+				</div>
+				<div class="key right" id="right">
+					Num6
+				</div>
+
+				<div class="key charge" id="explone">
+					z
+				</div>
+			</div>
+		</div>
+		<div class="refresh" id="refresh" onclick="refresh ();">
+			Refresh
+		</div>
+		<div class="kill" id="killGrass">
+			killGrass
+		</div>
+		<div class="kill" id="killEater">
+			killEater
+		</div>
+		<div class="kill" id="killPred">
+			killPred
+		</div>
+		<br>
+		<div id="grassBar" style="background-color: green" class="bar">
+			
+		</div>
+		<div id="eaterBar" style="background-color: yellow" class="bar">
+			
+		</div>
+		<div id="predatorBar" style="background-color: red" class="bar">
+			
+		</div>
+		<br>
+	</body>
+</html>
