@@ -1,44 +1,44 @@
 var express = require ("express");
 var app = express ();
 
-// app.get("/", function (req, res)
-// {
-//     res.send ("<h1>Hello w#rld</h1>");
-// });
+app.get("/", function (req, res)
+{
+    res.send ("<h1>Hello w#rld</h1>");
+});
 
-// app.get("/tumo", function (req, res)
-// {
-//     res.send ("<h1>this is TUMO!!</h1>");
-// });
+app.get("/tumo", function (req, res)
+{
+    res.send ("<h1>this is TUMO!!</h1>");
+});
 
-// app.get ("/:name", function (req, res)
-// {
-//     var name = req.params.name;
-//     res.send ("</h1>Hello " + name + "</h1>");
-// });
+app.get ("/:name", function (req, res)
+{
+    var name = req.params.name;
+    res.send ("</h1>Hello " + name + "</h1>");
+});
 
-// app.get ("/users/:name", function (req, res)
-// {
-//     var name = req.params.name;
-//     res.send ("</h1>Hello user " + name + "</h1>");
-// });
+app.get ("/users/:name", function (req, res)
+{
+    var name = req.params.name;
+    res.send ("</h1>Hello user " + name + "</h1>");
+});
 
 
-// app.get ("/google", function (req, res)
-// {
-//     res.redirect ('http://google.com');
-// });
+app.get ("/google", function (req, res)
+{
+    res.redirect ('http://google.com');
+});
 
-// app.get ("/google/:search", function (req, res)
-// {
-//     var search = req.params.search;
-//     res.redirect ('http://google.com/search?q=' + search);
-// });
+app.get ("/google/:search", function (req, res)
+{
+    var search = req.params.search;
+    res.redirect ('http://google.com/search?q=' + search);
+});
 
-// app.get ("/*", function (req, res)
-// {
-//     res.send ("</h1>Error 404: Page not found</h1>");
-// });
+app.get ("/*", function (req, res)
+{
+    res.send ("</h1>Error 404: Page not found</h1>");
+});
 
 
 // app.use (express.static ("lesson-2"));
@@ -105,15 +105,15 @@ var app = express ();
 // main ();
 
 
-var fs = require ('fs');
+// var fs = require ('fs');
 
-function main ()
-{
-    var text = fs.readFileSync ("fstests.js").toString ();
-    var myJSON = JSON.stringify (text);
-    fs.writeFileSync ("obj.json", myJSON);
-}
-main ();
+// function main ()
+// {
+//     var text = fs.readFileSync ("fstests.js").toString ();
+//     var myJSON = JSON.stringify (text);
+//     fs.writeFileSync ("obj.json", myJSON);
+// }
+// main ();
 
 app.listen (3003, function ()
 {
