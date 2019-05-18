@@ -5,11 +5,32 @@ function setup ()
     let socket = io ();
     let side = 20;
 	let matrix = [];
+
+	document.getElementById ('refresh').onclick = function ()
+	{
+		socket.emit("refresh", "refresh");
+	}
+	document.getElementById ('killGrass').onclick = function ()
+	{
+		socket.emit("refresh", "killGrass");
+	}
+	document.getElementById ('killEater').onclick = function ()
+	{
+		socket.emit("refresh", "killGrassEater");
+	}
+	document.getElementById ('killPred').onclick = function ()
+	{
+		socket.emit("refresh", "killPredator");
+	}
 	
-    socket.on ("data", drawCreatures);
+	socket.on ("data", drawCreatures);
 
 	function drawCreatures (data)
 	{
+		$('#grassBar').html(data.grassData + "%");
+		$('#eaterBar').html(data.eaterData + "%");
+		$('#predatorBar').html(data.predatorData + "%");
+
         matrix = data.matrix;
         createCanvas (matrix[0].length * side, matrix.length * side);
 		background ('#acacac');

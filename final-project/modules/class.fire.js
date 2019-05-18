@@ -1,5 +1,6 @@
 var Creature = require("./Creature");
 var randomNumber = require("./random");
+let arr = require ('./arrays.js');
 
 module.exports = class Fire extends Creature
 {
@@ -14,7 +15,7 @@ module.exports = class Fire extends Creature
 		if (this.energy <= 0)
 		{
 			matrix [this.y] [this.x] = 0;
-			fireArr.splice (i, 1);
+			arr.fireArr.splice (i, 1);
 		}
 		else
 		{

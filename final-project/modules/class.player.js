@@ -1,5 +1,6 @@
 var Creature = require("./Creature");
 var randomNumber = require("./random");
+let arr = require ('./arrays.js');
 
 module.exports = class Player extends Creature
 {
@@ -213,7 +214,7 @@ module.exports = class Player extends Creature
 				{
 					matrix [y] [x] = 5;
 					let newFire = new Fire (x, y);
-					fireArr.push (newFire);
+					arr.fireArr.push (newFire);
 				}
 			}
 		}
@@ -226,10 +227,10 @@ module.exports = class Player extends Creature
 			let newCharge3 = new Charge (this.x - 3, this.y, "left");
 			let newCharge4 = new Charge (this.x + 3, this.y, "right");
 
-			chargeArr.push (newCharge1);
-			chargeArr.push (newCharge2);
-			chargeArr.push (newCharge3);
-			chargeArr.push (newCharge4);
+			arr.chargeArr.push (newCharge1);
+			arr.chargeArr.push (newCharge2);
+			arr.chargeArr.push (newCharge3);
+			arr.chargeArr.push (newCharge4);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 var Creature = require("./Creature");
 var randomNumber = require("./random");
+let arr = require ('./arrays.js');
 
 module.exports = class Grass extends Creature
 {
@@ -29,7 +30,7 @@ module.exports = class Grass extends Creature
 	{
 		if (matrix [this.y] [this.x] != 1)
 		{
-			grassArr.splice (i, 1);
+			arr.grassArr.splice (i, 1);
 		}
 		else
 		{
@@ -44,7 +45,7 @@ module.exports = class Grass extends Creature
 				let x = newCell [0];
 				let y = newCell [1];
 				let newGrass = new Grass (x, y);
-				grassArr.push (newGrass);
+				arr.grassArr.push (newGrass);
 				matrix [y] [x] = 1;
 				this.multiply = 0;
 			}

@@ -1,4 +1,5 @@
 var Creature = require("./Creature");
+let arr = require ('./arrays.js');
 var randomNumber = require("./random");
 let Grass = require ("./class.grass.js");
 let GrassEater = require ("./class.grasseater.js");
@@ -167,21 +168,21 @@ module.exports = class Charge extends Creature
 
 				if (randomnum == 2)
 				{
-					predatorArr.push (new Predator (newx, newy));
+					arr.predatorArr.push (new Predator (newx, newy));
 					matrix [newy] [newx] = 3;
 				}
 				else if (randomnum == 1)
 				{
-					grassEaterArr.push (new GrassEater (newx, newy));
+					arr.grassEaterArr.push (new GrassEater (newx, newy));
 					matrix [newy] [newx] = 2;
 				}
 				else if (randomnum == 0)
 				{
-					grassArr.push (new Grass (newx, newy));
+					arr.grassArr.push (new Grass (newx, newy));
 					matrix [newy] [newx] = 1;
 				}
 			}
-			chargeArr.splice (i, 1);
+			arr.chargeArr.splice (i, 1);
 		}
 	}
 }

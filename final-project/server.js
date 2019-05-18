@@ -1,9 +1,4 @@
-grassArr = [];
-grassEaterArr = [];
-predatorArr = [];
-bombArr = [];
-fireArr = [];
-chargeArr = [];
+let arr = require ('./modules/arrays.js');
 matrix = [];
 
 let w = 33;
@@ -83,26 +78,26 @@ function creatingObjects ()
 			if (matrix [y] [x] == 1)
 			{
 				let gr = new Grass(x, y);
-				grassArr.push (gr);
+				arr.grassArr.push (gr);
 			}
 			else if (matrix [y] [x] == 2)
 			{
 				let ge = new GrassEater (x, y);
-				grassEaterArr.push (ge);
+				arr.grassEaterArr.push (ge);
 			}
 			else if (matrix [y] [x] == 3)
 			{
 				let pr = new Predator (x, y);
-				predatorArr.push (pr);
+				arr.predatorArr.push (pr);
 			}
 			else if (matrix [y] [x] == 4)
 			{
 				let bm = new Bomb (x, y);
-				bombArr.push (bm);
+				arr.bombArr.push (bm);
 			}
 			else if (matrix [y] [x] == 7)
 			{
-				player = new Player (x, y);
+				arr.player = new Player (x, y);
 			}
 		}
 	}
@@ -110,43 +105,115 @@ function creatingObjects ()
 
 creatingObjects ();
 
+function refresh ()
+{
+	matrixGenerator (30, 2, 2);
+	arr.grassArr = [];
+	arr.grassEaterArr = [];
+	arr.predatorArr = [];
+	arr.bombArr = [];
+	arr.fireArr = [];
+	arr.chargeArr = [];
+	creatingObjects ();
+}
 
+function kill (x)
+{
+	for (let i in matrix)
+	{
+		for (let k in matrix [i])
+		{
+			if (matrix [i] [k] == x)
+			{
+				matrix [i] [k] = 0;
+			}
+		}
+	}
+}
 
 function game ()
 {
-    for(let i in grassArr)
+    for(let i in arr.grassArr)
 	{
-		grassArr [i].mul (i);
+		arr.grassArr [i].mul (i);
 	}
-	for(let i in grassEaterArr)
+	for(let i in arr.grassEaterArr)
 	{
-		grassEaterArr [i].move (i);
+		arr.grassEaterArr [i].move (i);
 	}
-	for(let i in predatorArr)
+	for(let i in arr.predatorArr)
 	{
-		predatorArr [i].move (i);
+		arr.predatorArr [i].move (i);
 	}
-	for(let i in bombArr)
+	for(let i in arr.bombArr)
 	{
-		bombArr [i].explone ();
+		arr.bombArr [i].explone ();
 	}
-	for(let i in fireArr)
+	for(let i in arr.fireArr)
 	{
-		fireArr [i].life (i);
+		arr.fireArr [i].life (i);
 	}
-	for(let i in chargeArr)
+	for(let i in arr.chargeArr)
 	{
-		chargeArr [i].move (i);
+		arr.chargeArr [i].move (i);
 	}
+
+	if (arr.grassArr.length <= 0 && arr.grassEaterArr.length <= 0 && arr.predatorArr.length <= 0 && arr.chargeArr.length <= 0)
+	{
+		refresh ();
+	}
+
+	let size = w * h;
+
+	let grassData = arr.grassArr.length / size * 100;
+	let eaterData = arr.grassEaterArr.length / size * 100;
+	let predatorData = arr.predatorArr.length / size * 100;
+	grassData = grassData.toFixed (2);
+	eaterData = eaterData.toFixed (2);
+	predatorData = predatorData.toFixed (2);
 
     let sendData =
     {
-        matrix: matrix
-    }
+		matrix: matrix,
+		grassData: grassData,
+		eaterData: eaterData,
+		predatorData: predatorData
+	}
 
-    io.sockets.emit ("data", sendData);
+	io.on ('connection', function (socket)
+	{
+		socket.on ("refresh", function (data)
+		{
+			if (data == "refresh")
+			{
+				refresh ();
+			}
+			else if (data == "killGrass")
+			{
+				kill (1);
+				arr.grassArr = [];
+			}
+			else if (data == "killGrassEater")
+			{
+				kill (2);
+				arr.grassEaterArr = [];
+			}
+			else if (data == "killPredator")
+			{
+				kill (3);
+				arr.predatorArr = [];
+			}
+		});
+	});
+
+	io.sockets.emit ("data", sendData);
 }
 
 
 
-setInterval (game, 100);
+// setInterval (game, 100);
+setTimeout(function run()
+{
+	game ();
+	setTimeout(run, 100);
+}, 100);
