@@ -46,6 +46,8 @@ function matrixGenerator (grass, eater, preda)
 	a = parseInt (randomNumber (w / 2, w - 1));
 	b = parseInt (randomNumber (h / 2, h - 1));
 	matrix [b] [a] = 4;
+
+	// matrix [0] [0] = 7
 }
 
 matrixGenerator(30, 2, 2);
@@ -54,6 +56,7 @@ let Grass = require ("./modules/class.grass.js");
 let GrassEater = require ("./modules/class.grasseater.js");
 let Predator = require ("./modules/class.predator.js");
 let Bomb = require ("./modules/class.bomb.js");
+let Player = require ("./modules/class.player.js")
 
 
 let express = require ('express');
@@ -114,6 +117,9 @@ function refresh ()
 	arr.bombArr = [];
 	arr.fireArr = [];
 	arr.chargeArr = [];
+
+	arr.player.x = 0;
+	arr.player.y = 0;
 	creatingObjects ();
 }
 
@@ -156,6 +162,13 @@ function game ()
 	for(let i in arr.chargeArr)
 	{
 		arr.chargeArr [i].move (i);
+	}
+
+	// arr.player.time++;
+	if (arr.player.time >= 7)
+	{
+		arr.player.time = 0;
+		arr.player.explone ();
 	}
 
 	if (arr.grassArr.length <= 0 && arr.grassEaterArr.length <= 0 && arr.predatorArr.length <= 0 && arr.chargeArr.length <= 0)
@@ -204,14 +217,35 @@ function game ()
 				arr.predatorArr = [];
 			}
 		});
+
+		socket.on ("player", function (data)
+		{
+			if (data == "KeyZ")
+			{
+				arr.player.explone ();
+			}
+			else if (data == "up")
+			{
+				arr.player.move ("up")
+			}
+			else if (data == "down")
+			{
+				arr.player.move ("down")
+			}
+			else if (data == "left")
+			{
+				arr.player.move ("left")
+			}
+			else if (data == "up")
+			{
+				arr.player.move ("right")
+			}
+		});
 	});
 
 	io.sockets.emit ("data", sendData);
 }
 
-
-
-// setInterval (game, 100);
 setTimeout(function run()
 {
 	game ();

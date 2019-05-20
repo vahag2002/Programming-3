@@ -1,27 +1,28 @@
+let socket = io ();
+
 function setup ()
 {
 	frameRate (60);
 
-    let socket = io ();
     let side = 20;
 	let matrix = [];
 
-	document.getElementById ('refresh').onclick = function ()
+	$('#refresh').click (function ()
 	{
 		socket.emit("refresh", "refresh");
-	}
-	document.getElementById ('killGrass').onclick = function ()
+	});
+	$('#killGrass').click (function ()
 	{
 		socket.emit("refresh", "killGrass");
-	}
-	document.getElementById ('killEater').onclick = function ()
+	});
+	$('#killEater').click (function ()
 	{
 		socket.emit("refresh", "killGrassEater");
-	}
-	document.getElementById ('killPred').onclick = function ()
+	});
+	$('#killPred').click (function ()
 	{
 		socket.emit("refresh", "killPredator");
-	}
+	});
 	
 	socket.on ("data", drawCreatures);
 
@@ -79,3 +80,28 @@ function setup ()
 		}
     }
 }
+
+// document.addEventListener('keypress', loggkey);
+// function loggkey(e)
+// {
+// 	if (e.code == "KeyZ")
+// 	{
+// 		socket.emit("player", "KeyZ");
+// 	}
+// 	else if (e.code == "Numpad8")
+// 	{
+// 		socket.emit("player", "up");
+// 	}
+// 	else if (e.code == "Numpad4")
+// 	{
+// 		socket.emit("player", "left");
+// 	}
+// 	else if (e.code == "Numpad6")
+// 	{
+// 		socket.emit("player", "right");
+// 	}
+// 	else if (e.code == "Numpad5")
+// 	{
+// 		socket.emit("player", "down");
+// 	}
+// }

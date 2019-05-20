@@ -1,6 +1,8 @@
-var Creature = require("./Creature");
-var randomNumber = require("./random");
+let Creature = require("./Creature");
+let randomNumber = require("./random");
 let arr = require ('./arrays.js');
+let Fire = require ('./class.fire.js');
+let Charge = require ('./class.charge.js');
 
 module.exports = class Player extends Creature
 {
