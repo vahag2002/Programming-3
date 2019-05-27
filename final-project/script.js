@@ -1,10 +1,9 @@
 let socket = io ();
+let side = 20;
 
 function setup ()
 {
 	frameRate (60);
-
-    let side = 20;
 	let matrix = [];
 
 	$('#refresh').click (function ()
@@ -36,7 +35,9 @@ function setup ()
         createCanvas (matrix[0].length * side, matrix.length * side);
 		background ('#acacac');
 		fill ("#acacac");
+		noStroke ();
 		rect (0, 0, matrix [0].length * side, matrix.length * side);
+		stroke (1);
 		for (let y = 0; y < matrix.length; y++)
 		{	
 			for (let x = 0; x < matrix [y].length; x++)
@@ -81,27 +82,11 @@ function setup ()
     }
 }
 
-// document.addEventListener('keypress', loggkey);
-// function loggkey(e)
-// {
-// 	if (e.code == "KeyZ")
-// 	{
-// 		socket.emit("player", "KeyZ");
-// 	}
-// 	else if (e.code == "Numpad8")
-// 	{
-// 		socket.emit("player", "up");
-// 	}
-// 	else if (e.code == "Numpad4")
-// 	{
-// 		socket.emit("player", "left");
-// 	}
-// 	else if (e.code == "Numpad6")
-// 	{
-// 		socket.emit("player", "right");
-// 	}
-// 	else if (e.code == "Numpad5")
-// 	{
-// 		socket.emit("player", "down");
-// 	}
-// }
+/* ------------------- PLAYER ------------------------*/
+
+function mousePressed ()
+{
+   	let x = parseInt (mouseX / side);
+	let y = parseInt (mouseY / side);
+	socket.emit("player", {x: x, y: y});
+}

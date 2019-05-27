@@ -104,6 +104,7 @@
 		}
 
 		.description{
+			margin: 10px;
 			display: inline-block;
 			border: solid 1px black;
 			background-color: darkgrey;
@@ -114,19 +115,121 @@
 		.description:hover{
 			cursor: pointer;
 		}
+
+		.header{
+			margin-left: 10px;
+		}
+
+		#defaultCanvas0{
+			margin-left: 10px;
+		}
 	</style>
 	<body>
-		<div class="refresh" id="refresh">
-			Refresh
+		<header class="header">
+			<h1>Ծրագրավորում III Երևան</h1>
+			<h1>Զարգարյան Վահագ</h1>
+		</header>
+
+		<div class="description" onclick="
+			if (document.getElementById('description').className == 'disabled')
+				document.getElementById('description').className = 'actived';
+			else
+				document.getElementById('description').className = 'disabled'"
+				onmousedown="this.style.background = 'grey';"
+				onmouseup="this.style.background = 'darkgrey';">
+			&raquo&raquo&raquo բացատրություն &laquo&laquo&laquo
 		</div>
-		<div class="kill" id="killGrass">
+		<br>
+		<table class="disabled" id="description">
+			<tr>
+				<td style="background-color: green;">
+					
+				</td>
+				<td>
+					Խոտ
+				</td>
+				<td>
+					Բազմանում է ամեն 3 կադրը մեկ
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: yellow;">
+					
+				</td>
+				<td>
+					Խոտակեր
+				</td>
+				<td>
+					ուտում է մոտակա խոտին, 5 խոտ ուտելուց հետո բազմանում է, մահանում է եթե 5 անգամ շարժվելիս խոտ չի ուտում
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: red;">
+					
+				</td>
+				<td>
+					Գիշատիչ
+				</td>
+				<td>
+					բավականին մեծ տարածքի մեջ խոտակեր է փնտրում և ուտում, 10 խոտակեր ուտելուց հետո բազմանում է, մահանում է եթե 20 անգամ շարժվելիս խոտ չի ուտում
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: black;">
+					
+				</td>
+				<td>
+					Ռումբ
+				</td>
+				<td>
+					պայթում է ամեն 7 կադրը մեկ: Խոտ պայթեցնելիս ստանում է 1, խոտակեր` 2, գիշատիչ` 3 միավոր
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: orange;">
+					
+				</td>
+				<td>
+					Կրակ
+				</td>
+				<td>
+					հայտնվում է ռումբի պայթյունից հետո
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: purple;">
+					
+				</td>
+				<td>
+					Հրթիռ
+				</td>
+				<td>
+					4 կողմ արձակվում է երբ ռումբը հավաքում է 150 միավոր, մատրիցի եզրին հասնելիս անհետանում է, իսկ իր տեղը պատահականորեն հայտնվում է կամ խոտ, կամ խոտակեր, կամ գիշատիչ: Իր ճանապարհին ամեն ինչ բացի ռումբից ոչնչացնում է
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: aqua;">
+					
+				</td>
+				<td>
+					Player
+				</td>
+				<td>
+					ռումբի կրկնօրինակն է, բայց այն տարբերությամբ, որ կարելի է նրա կոորդինատները փոխել (կտտացնել Canvas-ի վրա)
+				</td>
+			</tr>
+		</table>
+		<div class="kill bar" id="killGrass">
 			killGrass
 		</div>
-		<div class="kill" id="killEater">
+		<div class="kill bar" id="killEater">
 			killEater
 		</div>
-		<div class="kill" id="killPred">
+		<div class="kill bar" id="killPred">
 			killPred
+		</div>
+		<div class="refresh bar" id="refresh">
+			Refresh
 		</div>
 		<br>
 		<div id="grassBar" style="background-color: green" class="bar">

@@ -47,7 +47,7 @@ function matrixGenerator (grass, eater, preda)
 	b = parseInt (randomNumber (h / 2, h - 1));
 	matrix [b] [a] = 4;
 
-	// matrix [0] [0] = 7
+	matrix [0] [0] = 7
 }
 
 matrixGenerator(30, 2, 2);
@@ -69,8 +69,6 @@ app.get ('/', function (req, res)
     res.redirect ('index.html');
 });
 server.listen (3000);
-
-
 
 function creatingObjects ()
 {
@@ -164,7 +162,7 @@ function game ()
 		arr.chargeArr [i].move (i);
 	}
 
-	// arr.player.time++;
+	arr.player.time++;
 	if (arr.player.time >= 7)
 	{
 		arr.player.time = 0;
@@ -220,25 +218,14 @@ function game ()
 
 		socket.on ("player", function (data)
 		{
-			if (data == "KeyZ")
+			if (data.y >= 0 && data.y <= 32 && data.x >= 0 && data.x <= 32)
 			{
+				matrix [arr.player.y] [arr.player.x] = 0;
+				matrix [data.y] [data.x] = 7;
+				arr.player.x = data.x;
+				arr.player.y = data.y;
+				arr.player.refreshDir ();
 				arr.player.explone ();
-			}
-			else if (data == "up")
-			{
-				arr.player.move ("up")
-			}
-			else if (data == "down")
-			{
-				arr.player.move ("down")
-			}
-			else if (data == "left")
-			{
-				arr.player.move ("left")
-			}
-			else if (data == "up")
-			{
-				arr.player.move ("right")
 			}
 		});
 	});
