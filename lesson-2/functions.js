@@ -209,3 +209,46 @@ function loggkey(e)
 		player.move ("down");
 	}
 }
+
+function mouseClicked ()
+{
+	if (mouseX < 660 && mouseX > 0 && mouseY < 660 && mouseY > 0)
+	{
+		let x = parseInt (mouseX / side);
+		let y = parseInt (mouseY / side);
+		if (x > matrix [0].length - 1)
+			x = matrix [0].length - 1;
+		if (x < 0)
+			x = 0;
+		if (y > matrix.length - 1)
+			y = matrix.length - 1;
+		if (y < 0)
+			y = 0;
+		matrix [player.y] [player.x] = 0;
+		matrix [y] [x] = 7;
+		player.x = x;
+		player.y = y;
+		player.refreshDir ();
+		player.explone ();
+	}
+}
+
+function mouseDragged (event)
+{
+	let x = parseInt (event.x / side) - 1;
+	let y = parseInt (event.y / side) - 11;
+	if (x > matrix [0].length - 1)
+		x = matrix [0].length - 1;
+	if (x < 0)
+		x = 0;
+	if (y > matrix.length - 1)
+		y = matrix.length - 1;
+	if (y < 0)
+		y = 0;
+	matrix [player.y] [player.x] = 0;
+	matrix [y] [x] = 7;
+	player.x = x;
+	player.y = y;
+	player.refreshDir ();
+	player.explone ();
+}

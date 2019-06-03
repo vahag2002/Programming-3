@@ -111,6 +111,7 @@
 			}
 
 			.description{
+				margin: 10px;
 				display: inline-block;
 				border: solid 1px black;
 				background-color: darkgrey;
@@ -120,6 +121,10 @@
 			}
 			.description:hover{
 				cursor: pointer;
+			}
+
+			#defaultCanvas0, table .header{
+				margin-left: 10px;
 			}
 		</style>
 	</head>
@@ -224,17 +229,17 @@
 				</div>
 			</div>
 		</div>
-		<div class="refresh" id="refresh" onclick="refresh ();">
+		<div class="kill bar" id="killGrass">
+			kill
+		</div>
+		<div class="kill bar" id="killEater">
+			kill
+		</div>
+		<div class="kill bar" id="killPred">
+			kill
+		</div>
+		<div class="refresh bar" id="refresh" onclick="refresh ();">
 			Refresh
-		</div>
-		<div class="kill" id="killGrass">
-			killGrass
-		</div>
-		<div class="kill" id="killEater">
-			killEater
-		</div>
-		<div class="kill" id="killPred">
-			killPred
 		</div>
 		<br>
 		<div id="grassBar" style="background-color: green" class="bar">

@@ -66,7 +66,9 @@ function setup()
 function draw()
 {
 	fill ("#acacac");
+	noStroke ();
 	rect (0, 0, matrix [0].length * side, matrix.length * side);
+	stroke (1);
 	for (let y = 0; y < matrix.length; y++)
 	{	
 		for (let x = 0; x < matrix [y].length; x++)

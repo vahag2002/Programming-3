@@ -20,17 +20,6 @@ function setup ()
 		ellipse (x, y, 50, 50);
 	}
 
-	function clean (data)
-	{
-		if (data == "true")
-		{
-			matrix = [];
-			noStroke();
-			fill ("#acacac");
-			rect (0, 0, h, w);
-		}
-	}
-
 	socket.on ("send", paint);
 	socket.on ("cleanup", clean);
 	// socket.on ("picture", function (data)
@@ -47,6 +36,17 @@ function setup ()
 	// 		}
 	// 	}
 	// });
+
+	function clean (data)
+	{
+		if (data == "true")
+		{
+			matrix = [];
+			noStroke();
+			fill ("#acacac");
+			rect (0, 0, h, w);
+		}
+	}
 
 	$(document).ready(function ()
 	{
