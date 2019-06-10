@@ -34,7 +34,7 @@ class Grass extends Creature
 			matrix [this.y] [this.x] = 1;
 			let newCell = random (this.chooseCell(0));
 
-			if (newCell && this.multiply >= 3)
+			if (newCell && this.multiply >= 2)
 			{
 				let x = newCell [0];
 				let y = newCell [1];

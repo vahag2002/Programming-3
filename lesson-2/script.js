@@ -1,5 +1,4 @@
 let matrix = [];
-let rn;
 
 let w = 33;
 let h = 33;
@@ -136,18 +135,22 @@ function draw()
 		chargeArr [i].move (i);
 	}
 
-	player.time++;
-	if (player.time >= 7)
+	if (player)
 	{
-		player.time = 0;
-		player.explone ();
+		player.time++;
+
+		if (player.time >= 7)
+		{
+			player.time = 0;
+			player.explone ();
+		}
 	}
 
 	if (grassArr.length <= 0 && grassEaterArr.length <= 0 && predatorArr.length <= 0 && chargeArr.length <= 0)
 	{
 		refresh ();
 	}
-
+	
 	let grassData = grassArr.length / size * 100;
 	let eaterData = grassEaterArr.length / size * 100;
 	let predatorData = predatorArr.length / size * 100;

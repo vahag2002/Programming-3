@@ -3,7 +3,6 @@ function setup ()
 	w = 800;
 	h = 1000;
 	matrix = [];
-	// picture = [];
 
 	socket = io ();
 
@@ -15,27 +14,13 @@ function setup ()
 	{
 		let x = data [0];
 		let y = data [1]
-		fill ("blue");
+		fill (randomNumber (0, 255), randomNumber (0, 255), randomNumber (0, 255));
 		stroke (1);
 		ellipse (x, y, 50, 50);
 	}
 
 	socket.on ("send", paint);
 	socket.on ("cleanup", clean);
-	// socket.on ("picture", function (data)
-	// {
-	// 	if (picture.length != data.length)
-	// 	{
-	// 		console.log ("z");
-	// 		console.log (picture.length);
-	// 		console.log (data.length);
-	// 		picture = data;
-	// 		for (let i in data)
-	// 		{
-	// 			ellipse (data [i] [0], data [i] [1], 50, 50);
-	// 		}
-	// 	}
-	// });
 
 	function clean (data)
 	{
@@ -61,6 +46,12 @@ function mouseDragged (event)
 {
 	matrix [0] = event.layerX;
 	matrix [1] = event.layerY;
-	// picture.push ([matrix [0], matrix [1]]);
 	socket.emit("draw", matrix);
+}
+
+function randomNumber (min, max)
+{
+	max++;
+	let random = Math.floor(Math.random() * (+max - +min)) + +min;
+	return random;
 }

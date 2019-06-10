@@ -44,16 +44,15 @@ function refresh ()
 	matrix [0] [0] = 7;
 	player = new Player (0, 0);
 
-	let r = randomNumber (0, 1);
-	let a, b;
+	// let a, b;
 
-	a = parseInt (randomNumber (0, w / 2 - 1));
-	b = parseInt (randomNumber (0, h / 2 - 1));
-	matrix [b] [a] = 4;
+	// a = parseInt (randomNumber (0, w / 2 - 1));
+	// b = parseInt (randomNumber (0, h / 2 - 1));
+	// matrix [b] [a] = 4;
 
-	a = parseInt (randomNumber (w / 2, w - 1));
-	b = parseInt (randomNumber (h / 2, h - 1));
-	matrix [b] [a] = 4;
+	// a = parseInt (randomNumber (w / 2, w - 1));
+	// b = parseInt (randomNumber (h / 2, h - 1));
+	// matrix [b] [a] = 4;
 
 	for (let y = 0; y < matrix.length; ++y)
 	{
@@ -86,21 +85,26 @@ function refresh ()
 
 /*------------------- kill something ----------------------*/
 
+function kill (type)
+{
+	for (let i in matrix)
+	{
+		for (let k in matrix [i])
+		{
+			if (matrix [i] [k] == type)
+			{
+				matrix [i] [k] = 0;
+			}
+		}
+	}
+}
+
 
 $(document).ready(function ()
 {
 	$('#killGrass').click(function()
 	{
-		for (let i in matrix)
-		{
-			for (let k in matrix [i])
-			{
-				if (matrix [i] [k] == 1)
-				{
-					matrix [i] [k] = 0;
-				}
-			}
-		}
+		kill (1);
 		grassArr = [];
 	});
 });
@@ -109,16 +113,7 @@ $(document).ready(function ()
 {
 	$('#killEater').click(function()
 	{
-		for (let i in matrix)
-		{
-			for (let k in matrix [i])
-			{
-				if (matrix [i] [k] == 2)
-				{
-					matrix [i] [k] = 0;
-				}
-			}
-		}
+		kill (2);
 		grassEaterArr = [];
 	});
 });
@@ -127,16 +122,7 @@ $(document).ready(function ()
 {
 	$('#killPred').click(function()
 	{
-		for (let i in matrix)
-		{
-			for (let k in matrix [i])
-			{
-				if (matrix [i] [k] == 3)
-				{
-					matrix [i] [k] = 0;
-				}
-			}
-		}
+		kill (3);
 		predatorArr = [];
 	});
 });
@@ -212,7 +198,7 @@ function loggkey(e)
 
 function mouseClicked ()
 {
-	if (mouseX < 660 && mouseX > 0 && mouseY < 660 && mouseY > 0)
+	if (mouseX < side * w && mouseX > 0 && mouseY < side * h && mouseY > 0 && player)
 	{
 		let x = parseInt (mouseX / side);
 		let y = parseInt (mouseY / side);
@@ -235,20 +221,56 @@ function mouseClicked ()
 
 function mouseDragged (event)
 {
-	let x = parseInt (event.x / side) - 1;
-	let y = parseInt (event.y / side) - 11;
-	if (x > matrix [0].length - 1)
-		x = matrix [0].length - 1;
-	if (x < 0)
-		x = 0;
-	if (y > matrix.length - 1)
-		y = matrix.length - 1;
-	if (y < 0)
-		y = 0;
-	matrix [player.y] [player.x] = 0;
-	matrix [y] [x] = 7;
-	player.x = x;
-	player.y = y;
-	player.refreshDir ();
-	player.explone ();
+	if (player)
+	{
+		let x = parseInt (event.x / side) - 1;
+		let y = parseInt (event.y / side) - 11;
+		if (x > matrix [0].length - 1)
+			x = matrix [0].length - 1;
+		if (x < 0)
+			x = 0;
+		if (y > matrix.length - 1)
+			y = matrix.length - 1;
+		if (y < 0)
+			y = 0;
+		matrix [player.y] [player.x] = 0;
+		matrix [y] [x] = 7;
+		player.x = x;
+		player.y = y;
+		player.refreshDir ();
+		player.explone ();
+	}
+}
+
+function radius (r, x, y)
+{
+	let arr = [];
+	let newY = y - r;
+	let n = 0;
+
+	for (newY; newY <= y; newY++)
+	{
+		for (let newX = n + x, length = Math.abs (n) + x; newX <= length; newX++)
+		{
+			arr.push ([newX, newY]);
+		}
+
+		n--;
+	}
+
+
+	newY = y + r;
+	n = 0;
+
+	for (newY; newY >= y; newY--)
+	{
+		for (let newX = n + x, length = Math.abs (n) + x; newX <= length; newX++)
+		{
+			arr.push ([newX, newY]);
+		}
+
+		n--;
+	}
+	
+	return arr;
 }
